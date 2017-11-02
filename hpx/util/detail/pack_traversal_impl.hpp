@@ -379,13 +379,15 @@ namespace util {
                     nullptr>
             auto rebind_container(
                 Base<OldType, Allocator> const& container) -> Base<NewType,
-                decltype(rebind_allocator<NewType>(container.get_allocator()))>
+                //decltype(rebind_allocator<NewType>(container.get_allocator()))>
+                std::allocator<NewType>>
             {
                 // Create a new version of the allpcator, that is capable of
                 // allocating the mapped type.
                 auto allocator =
                     rebind_allocator<NewType>(container.get_allocator());
-                return Base<NewType, decltype(allocator)>(std::move(allocator));
+                //return Base<NewType, decltype(allocator)>(std::move(allocator));
+                return Base<NewType, std::allocator<NewType>>();
             }
 
             /// Returns the default iterators of the container in case

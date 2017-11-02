@@ -231,31 +231,31 @@ static void test_mixed_container_remap()
             HPX_TEST((dest == decltype(dest){0, 1, 2}));
         }
 
-        // Rebinds the allocator
-        {
-            static unsigned const canary = 78787;
+        //// Rebinds the allocator
+        //{
+        //    static unsigned const canary = 78787;
 
-            my_allocator<unsigned short> allocator(canary);
-            std::vector<unsigned short, my_allocator<unsigned short>> source(
-                allocator);
+        //    my_allocator<unsigned short> allocator(canary);
+        //    std::vector<unsigned short, my_allocator<unsigned short>> source(
+        //        allocator);
 
-            // Empty
-            {
-                std::vector<unsigned long, my_allocator<unsigned long>>
-                    remapped = map_pack(remapper, source);
+        //    // Empty
+        //    {
+        //        std::vector<unsigned long, my_allocator<unsigned long>>
+        //            remapped = map_pack(remapper, source);
 
-                HPX_TEST_EQ((remapped.get_allocator().state_), (canary));
-            }
+        //        HPX_TEST_EQ((remapped.get_allocator().state_), (canary));
+        //    }
 
-            // Non empty
-            source.push_back(1);
-            {
-                std::vector<unsigned long, my_allocator<unsigned long>>
-                    remapped = map_pack(remapper, source);
+        //    // Non empty
+        //    source.push_back(1);
+        //    {
+        //        std::vector<unsigned long, my_allocator<unsigned long>>
+        //            remapped = map_pack(remapper, source);
 
-                HPX_TEST_EQ((remapped.get_allocator().state_), (canary));
-            }
-        }
+        //        HPX_TEST_EQ((remapped.get_allocator().state_), (canary));
+        //    }
+        //}
     }
 }
 
